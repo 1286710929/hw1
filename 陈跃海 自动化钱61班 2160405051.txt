@@ -1,0 +1,122 @@
+clear all;clc;
+I=imread('C:\Users\chenyuehai\Desktop\lena.bmp');
+IN=imresize(I,[2018,2048],'nearest');
+IB=imresize(I,[2048,2048],'bilinear');
+IC=imresize(I,[2048,2048],'bicubic');
+subplot(2,2,1);
+imshow(I);
+title('(a) 原图像');
+subplot(2,2,2);
+imshow(IN);
+title('(b) 最近邻内插法所得图像');
+subplot(2,2,3);
+imshow(IB);
+title('(c) 双线性内插法所得图像');
+subplot(2,2,4);
+imshow(IC);
+title('(d) 双三次内插法所得图像')
+
+
+
+close all;clear all;clc;
+I1=imread('C:\Users\chenyuehai\Desktop\lena.bmp');
+I2=imread('C:\Users\chenyuehai\Desktop\elain1.bmp');
+T=[cosd(30) sind(30) 0;-sind(30) cos(30) 0;0 0 1]; tform=affine2d(T);
+I11=imwarp(I1,tform);
+I1N=imresize(I11,[2048 2048],'nearest');
+I1B=imresize(I11,[2048 2048],'bilinear');
+I1C=imresize(I11,[2048 2048],'bicubic');
+I22=imwarp(I2,tform);
+I2N=imresize(I22,[2048 2048],'nearest');
+I2B=imresize(I22,[2048 2048],'bilinear');
+I2C=imresize(I22,[2048 2048],'bicubic');
+figure(1);
+imshow(I1);
+title('lena原图像');
+figure(2);
+imshow(I1N);
+title('lena最近邻'); figure(3);
+imshow(I1B);
+title('lena双线性'); figure(4);
+imshow(I1C);
+title('lena双三次'); figure(5);
+imshow(I2);
+title('elain1原图像'); figure(6);
+imshow(I2N);
+title('elain1最近邻'); figure(7);
+imshow(I2B);
+title('elain1双线性'); figure(8);
+imshow(I2C);
+title('elain1双三次')
+
+close all;
+clear all;
+clc;
+I=imread('C:\Users\chenyuehai\Desktop\lena.bmp');%导入图像“lena.bmp”
+figure(1)
+imshow(I);
+title('image of 8 bits');%显示k=8的原图像
+[x,y]=size(I);%读取图像“lena.bmp”的长宽
+img7=zeros(x,y);%产生一个名为img7的512X512的0矩阵
+img6=zeros(x,y);
+img5=zeros(x,y);
+img4=zeros(x,y);
+img3=zeros(x,y);
+img2=zeros(x,y);
+img1=zeros(x,y);
+for i=1:x
+for j=1:y
+img7(i,j)=floor(I(i,j)/2);%将原图像的每个像素的灰度级除以2,并用函数floor进行下取整
+end
+end
+figure(2)
+imshow((img7),[0,127]);
+title('image of 7 bits');
+for i=1:x
+for j=1:y
+img6(i,j)=floor(img7(i,j)/2);%将原图像的每个像素的灰度级除以2,并用函数floor进行下取整
+end
+end
+figure(3)
+imshow((img6),[0,63]);
+title('image of 6 bits');
+for i=1:x
+for j=1:y
+img5(i,j)=floor(img6(i,j)/2);%将原图像的每个像素的灰度级除以2,并用函数floor进行下取整
+end
+end
+figure(4)
+imshow((img5),[0,31]);
+title('image of 5 bits');
+for i=1:x
+for j=1:y
+img4(i,j)=floor(img5(i,j)/2);%将原图像的每个像素的灰度级除以2,并用函数floor进行下取整
+end
+end
+figure(5)
+imshow((img4),[0,15]);
+title('image of 4 bits');
+for i=1:x
+for j=1:y
+img3(i,j)=floor(img4(i,j)/2);%将原图像的每个像素的灰度级除以2,并用函数floor进行下取整
+end
+end
+figure(6)
+imshow((img3),[0,7]);
+title('image of 3 bits');
+for i=1:x
+for j=1:y
+img2(i,j)=floor(img3(i,j)/2);%将原图像的每个像素的灰度级除以2,并用函数floor进行下取整
+end
+end
+figure(7)
+imshow((img2),[0,3]);
+title('image of 2 bits');
+for i=1:x
+for j=1:y
+img1(i,j)=floor(img2(i,j)/2);%将原图像的每个像素的灰度级除以2,并用函数floor进行下取整
+end
+end
+figure(8)
+imshow((img1),[0,1]);
+title('image of 1 bits')
